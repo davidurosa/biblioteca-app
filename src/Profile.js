@@ -13,8 +13,8 @@ const Profile = () => {
     isAuthenticated && (
       
 
-<Card bg="dark" style={{ width: '15rem' }} text="light">
-  <Card.Img variant="top" src={user.picture} alt={user.name} />
+<Card bg="success" style={{ height: '12rem' }} text="light">
+  <Card.Img  height="100rem" variant="top" src={user.picture} alt={user.name} />
   <Card.Body>
     <Card.Title><p>{user.name}</p></Card.Title>
     <Card.Text>

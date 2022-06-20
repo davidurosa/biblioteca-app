@@ -1,7 +1,6 @@
 section{
-background-color: #1a1d45 ;
-height: 150vh;
-color: aliceblue;
+height: 100vh;
+
 position: sticky;
 }
 .navColor{
@@ -9,10 +8,12 @@ position: sticky;
 }
 
 footer{
-    background-color: #191f4e ;
+    background-color: #307d7f ;
     height: 10vh;
     color: aliceblue;
     display: flex;
     justify-content: center;
     align-items: center;
     }
+
+    

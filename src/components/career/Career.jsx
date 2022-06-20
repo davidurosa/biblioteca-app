@@ -1,13 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Table, Card, Button, Col, Row, Modal, Form } from "react-bootstrap";
+const API = process.env.REACT_APP_API+'careers';
 
-const API = process.env.REACT_APP_API+'authors';
-
-export function Author() {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  console.log(API);
-  const [authors, setAuthors] = useState([]);
+export function Career() {
+  const [careers, setcareers] = useState([]);
   const [ModalEdit, setModalEdit] = useState(false);
   const [ModalDelete, setModalDelete] = useState(false);
   const [ModalCreate, setModalCreate] = useState(false);
@@ -23,79 +20,76 @@ export function Author() {
   };
   const handleCloseCreate = () => setModalCreate(false);
 
-  const [authorSelect, setAuthorSelect] = useState({
+  const [careerSelect, setcareerSelect] = useState({
     id: "",
     name: "",
-    last_name: "",
   });
 
   /* selecionar los Autores */
-  const SelectAuthor = (element, caso) => {
-    setAuthorSelect(element);
+  const Selectcareer = (element, caso) => {
+    setcareerSelect(element);
     caso === "editar" ? setModalEdit(true) : setModalDelete(true);
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setAuthorSelect((prevState) => ({
+    setcareerSelect((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
 
   const clear = () => {
-    authorSelect.id = "";
-    authorSelect.name = "";
-    authorSelect.last_name = "";
+    careerSelect.id = "";
+    careerSelect.name = "";
   };
   /* Crear Autores */
   const store = async () => {
     await axios.post(`${API}`, {
-      name: authorSelect.name,
-      last_name: authorSelect.last_name,
+      name: careerSelect.name,
     });
-    getAllAuthors();
+    getAllcareers();
     clear();
     handleCloseCreate();
   };
 
   /* autualizar los datos */
   const update = async () => {
-    await axios.put(`${API}/${authorSelect.id}`, {
-      name: authorSelect.name,
-      last_name: authorSelect.last_name,
+    await axios.put(`${API}/${careerSelect.id}`, {
+      name: careerSelect.name,
     });
-    getAllAuthors();
+    getAllcareers();
     handleClose();
   };
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
-    getAllAuthors();
+    getAllcareers();
   }, []);
 
-  const getAllAuthors = async () => {
+  const getAllcareers = async () => {
     const response = await axios.get(`${API}`);
-    setAuthors(response.data);
+    setcareers(response.data);
   };
 
-  const deleteAuthor = async (id) => {
+  const deletecareer = async (id) => {
     await axios.delete(`${API}/${id}`);
-    getAllAuthors();
+    getAllcareers();
     handleCloseDelete();
   };
   return (
     <div className="" style={{ marginTop: "5rem" }}>
       <Card
+      
         className="mb-2"
       >
         <Card.Header>
           <Row>
             <Col md={8}>
-              <Card.Title>Authors</Card.Title>
+              <Card.Title>careers</Card.Title>
             </Col>
             <Col md={{ span: 1, offset: 2 }}>
-              <Button variant="secondary" onClick={handleShow}>Registrar</Button>
+            <Button variant="secondary" onClick={handleShow}>Registrar</Button>
             </Col>
           </Row>
         </Card.Header>
@@ -105,28 +99,26 @@ export function Author() {
             <thead>
               <tr>
                 <th scope="col">name</th>
-                <th scope="col">last name</th>
                 <th scope="col">action</th>
               </tr>
             </thead>
             <tbody>
-              {authors.map((author) => (
-                <tr key={author.id}>
-                  <th scope="row">{author.name}</th>
-                  <td>{author.last_name}</td>
+              {careers.map((career) => (
+                <tr key={career.id}>
+                  <th scope="row">{career.name}</th>
                   <td colSpan="2">
-                    {/* <Link to={`/edit/${author.id}`} className="btn btn-outline-success m-2">
-                  Editar
-                </Link> */}
+                    {/* <Link to={`/edit/${career.id}`} className="btn btn-outline-success m-2">
+                Editar
+              </Link> */}
                     <button
                       className="btn btn-outline-success m-2"
-                      onClick={() => SelectAuthor(author, "editar")}
+                      onClick={() => Selectcareer(career, "editar")}
                     >
                       Editar
                     </button>
                     <button
                       className="btn btn-outline-danger "
-                      onClick={() => SelectAuthor(author, "eliminar")}
+                      onClick={() => Selectcareer(career, "eliminar")}
                     >
                       eliminar
                     </button>
@@ -142,7 +134,7 @@ export function Author() {
 
       <Modal backdrop="static" show={ModalCreate} onHide={handleCloseCreate}>
         <Modal.Header closeButton>
-          <Modal.Title>Register Author</Modal.Title>
+          <Modal.Title>Register career</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -154,21 +146,7 @@ export function Author() {
                 autoFocus
                 onChange={handleChange}
                 name="name"
-                value={authorSelect && authorSelect.name}
-              />
-            </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>last Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="last Name"
-                name="last_name"
-                onChange={handleChange}
-                autoFocus
-                value={authorSelect && authorSelect.last_name}
+                value={careerSelect && careerSelect.name}
               />
             </Form.Group>
           </Form>
@@ -187,7 +165,7 @@ export function Author() {
 
       <Modal backdrop="static" show={ModalEdit} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Editar Author</Modal.Title>
+          <Modal.Title>Editar career</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -199,21 +177,7 @@ export function Author() {
                 autoFocus
                 onChange={handleChange}
                 name="name"
-                value={authorSelect && authorSelect.name}
-              />
-            </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>last Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="last Name"
-                name="last_name"
-                onChange={handleChange}
-                autoFocus
-                value={authorSelect && authorSelect.last_name}
+                value={careerSelect && careerSelect.name}
               />
             </Form.Group>
           </Form>
@@ -231,16 +195,15 @@ export function Author() {
       {/* Modal Eliminar */}
       <Modal backdrop="static" show={ModalDelete} onHide={handleCloseDelete}>
         <Modal.Header closeButton>
-          <Modal.Title>delete Author</Modal.Title>
+          <Modal.Title>delete career</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Estas seguro que quieres eliminar El Autor: {authorSelect.name}{" "}
-          {authorSelect.last_name}
+          Estas seguro que quieres eliminar El Autor: {careerSelect.name}{" "}
         </Modal.Body>
         <Modal.Footer>
           <Button
             variant="success"
-            onClick={() => deleteAuthor(authorSelect.id)}
+            onClick={() => deletecareer(careerSelect.id)}
           >
             Yes
           </Button>

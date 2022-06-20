@@ -11,7 +11,7 @@ const Navbar1 = () => {
 
   return (
     <>
-      <Navbar fixed="top" collapseOnSelect expand="lg" bg="info" variant="dark">
+      <Navbar fixed="top" collapseOnSelect expand="lg" bg="primary" variant="dark">
         <Container>
           <Navbar.Brand as={Link} to="/">
             Biblioteca
@@ -19,14 +19,16 @@ const Navbar1 = () => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link as={Link} to="/">
-                Book
+              <Nav.Link as={Link} to="/career">
+                Career
               </Nav.Link>
-              <Nav.Link as={Link} to="/author">
-                Author
+              <Nav.Link as={Link} to="/matter">
+                Matter
+              </Nav.Link>
+              <Nav.Link as={Link} to="/student">
+                Student
               </Nav.Link>
               <NavDropdown
-                menuVariant="dark"
                 variant="pills"
                 title="Books"
                 id="collasible-nav-dropdown"
@@ -34,11 +36,11 @@ const Navbar1 = () => {
                 <NavDropdown.Item as={Link} to="author">
                   Author
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
+                <NavDropdown.Item as={Link} to="publishing">
+                  Publiching
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
+                <NavDropdown.Item as={Link} to="book">
+                  Book
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
@@ -46,7 +48,6 @@ const Navbar1 = () => {
               {isAuthenticated ? (
                 <>
                   <NavDropdown
-                    menuVariant="dark"
                     title="Perfil"
                     id="collasible-nav-dropdown"
                   >
@@ -69,8 +70,8 @@ const Navbar1 = () => {
         </Container>
       </Navbar>
       <section>
-        <Container className="pt-5" >
-          <div style={{ marginTop: "5rem" }}>
+        <Container className="pt-5 container-fluid" >
+          <div className="container-fluid" style={{ marginTop: "5rem" }}>
 
           <Outlet ></Outlet>
           </div>
